@@ -52,8 +52,8 @@ var Background = function() {
 	chrome.storage.onChanged.addListener(function(changes, namespace) {
 		for (key in changes) {
 			if(key == "redirect_url") {
-				_this.checkRedirect();
 				_this.redirect_url = changes[key].newValue;
+				_this.checkRedirect();
 			}
 		}
 	});

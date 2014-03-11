@@ -22,10 +22,10 @@ Procrap.prototype = {
 	handleURLValue: function(value) {
 		if(this.isValidURL(value)) {
 			this.$input.className = "valid";
-			this.storeURL(value);
 		} else {
 			this.$input.className = "";
 		}
+		this.storeURL(value);
 	},
 	getURL: function() {
 		var _this = this;
