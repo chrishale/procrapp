@@ -1,6 +1,6 @@
 <html>
 <head>
-	<title>Procrap</title>
+	<title>Strike'em</title>
 	<style type="text/css">
 	html, body { height: 80px; }
 	body {
@@ -8,7 +8,9 @@
 		background: #ececec;
 		font-family: Helvetica, sans-serif;
 	}
-	input { border: 0; padding: 10px; min-width: 240px; }
+	input { box-shadow: 0 0 5px red; padding: 10px; min-width: 240px; }
+	input:focus { outline: none; }
+	.valid { box-shadow: 0 0 5px green; }
 	p { font-size: 10px; color: #999; }
 	a { color: inherit; }
 	</style>
@@ -16,7 +18,7 @@
 <body>
 
 <label>Redirect URL</label>
-<input type="text" id="url">
+<input type="url" id="url">
 <p>Create your strike url by visiting: <a id="strike-link" href="http://strikeapp.com/">strikeapp.com</a>.</p>
 
 <script type="text/javascript" src="app.js"></script>

@@ -7,7 +7,7 @@ var Procrap = function() {
 	
 	// listeners
 	this.$input.addEventListener('keyup', function(e) {
-		_this.storeURL(e.currentTarget.value);
+		_this.handleURLValue(e.currentTarget.value);
 	});
 	this.$strikeLink.addEventListener('click', function(e) {
 		e.preventDefault();
@@ -19,10 +19,19 @@ var Procrap = function() {
 };
 
 Procrap.prototype = {
+	handleURLValue: function(value) {
+		if(this.isValidURL(value)) {
+			this.$input.className = "valid";
+			this.storeURL(value);
+		} else {
+			this.$input.className = "";
+		}
+	},
 	getURL: function() {
 		var _this = this;
 		chrome.storage.local.get("redirect_url", function(results) {
 			if(results["redirect_url"]) _this.$input.value = results["redirect_url"];
+			_this.handleURLValue(_this.$input.value);
 		});
 	},
 	storeURL: function(url) {
@@ -30,7 +39,15 @@ Procrap.prototype = {
 	},
 	goToStrike: function() {
 		chrome.tabs.create({'url': "http://strikeapp.com"});
-	}
+	},
+	isValidURL: function(url) {
+		var RegExp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
+		if(RegExp.test(url)) {
+			return true;
+		} else {
+			return false;
+		}
+	 }
 };
 
 document.addEventListener('DOMContentLoaded', function () {
