@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
-  "name": "Procrap",
-  "version": "0.1",
+  "name": "Procrapp",
+  "version": "0.2",
   "description": "Stops you from procrastinating till you get things done!",
   "icons": { 
     "16": "icon16.png",
@@ -12,14 +12,13 @@
     "default_icon": {
       "19": "icon.png"
     },
-    "default_title": "Procrap",
+    "default_title": "Procrapp",
     "default_popup": "index.html"
   },
   "permissions": [
     "webRequest",
     "webRequestBlocking",
-    "*://*.facebook.com/*",
-    "*://*.twitter.com/*",
+    "*://*/",
     "storage",
     "activeTab"
   ],

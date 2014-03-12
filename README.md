@@ -1,4 +1,4 @@
-# Procrap
+# Procrapp
 
 A simple link blocker extension that redirects to a link of your choice (e.g. a strikeapp.com to do list). A pleasent reminder of all the things you still have to do.
 

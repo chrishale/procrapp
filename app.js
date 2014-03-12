@@ -1,4 +1,4 @@
-var Procrap = function() {
+var Procrapp = function() {
 	var _this = this;
 	
 	this.localStorage = chrome.storage.local;
@@ -7,7 +7,7 @@ var Procrap = function() {
 	
 	// listeners
 	this.$input.addEventListener('keyup', function(e) {
-		_this.storeURL(e.currentTarget.value);
+		_this.handleURLValue(e.currentTarget.value);
 	});
 	this.$strikeLink.addEventListener('click', function(e) {
 		e.preventDefault();
@@ -18,11 +18,16 @@ var Procrap = function() {
 	this.getURL();
 };
 
-Procrap.prototype = {
+Procrapp.prototype = {
+	handleURLValue: function(value) {
+		this.$input.className = this.isValidURL(value) ? "valid" : "";
+		this.storeURL(value);
+	},
 	getURL: function() {
 		var _this = this;
 		chrome.storage.local.get("redirect_url", function(results) {
 			if(results["redirect_url"]) _this.$input.value = results["redirect_url"];
+			_this.handleURLValue(_this.$input.value);
 		});
 	},
 	storeURL: function(url) {
@@ -30,9 +35,17 @@ Procrap.prototype = {
 	},
 	goToStrike: function() {
 		chrome.tabs.create({'url': "http://strikeapp.com"});
-	}
+	},
+	isValidURL: function(url) {
+		var RegExp = /(http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
+		if(RegExp.test(url)) {
+			return true;
+		} else {
+			return false;
+		}
+	 }
 };
 
 document.addEventListener('DOMContentLoaded', function () {
-	var app = new Procrap();
+	var app = new Procrapp();
 });

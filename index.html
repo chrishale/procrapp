@@ -1,23 +1,21 @@
 <html>
 <head>
-	<title>Procrap</title>
+	<title>Strike'em</title>
 	<style type="text/css">
-	html, body { height: 80px; }
-	body {
-		padding: 10px; 
-		background: #ececec;
-		font-family: Helvetica, sans-serif;
-	}
+	html, body { min-height: 80px; height: 110px; }
+	body { padding: 10px; background: #ececec; font-family: Helvetica, sans-serif; }
 	input { border: 0; padding: 10px; min-width: 240px; }
+	input:focus { outline: none; }
+	.valid { color: green; }
 	p { font-size: 10px; color: #999; }
 	a { color: inherit; }
 	</style>
 </head>
 <body>
 
-<label>Redirect URL</label>
-<input type="text" id="url">
-<p>Create your strike url by visiting: <a id="strike-link" href="http://strikeapp.com/">strikeapp.com</a>.</p>
+<label>Procrapp</label>
+<input type="url" id="url">
+<p>Create your Strike url by visiting: <a id="strike-link" href="http://strikeapp.com/">strikeapp.com</a>. Paste the link to your list in the box above and you will be redirected to the list until you complete all your tasks.</p>
 
 <script type="text/javascript" src="app.js"></script>
 </body>
