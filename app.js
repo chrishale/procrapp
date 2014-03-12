@@ -1,4 +1,4 @@
-var Procrap = function() {
+var Procrapp = function() {
 	var _this = this;
 	
 	this.localStorage = chrome.storage.local;
@@ -18,13 +18,9 @@ var Procrap = function() {
 	this.getURL();
 };
 
-Procrap.prototype = {
+Procrapp.prototype = {
 	handleURLValue: function(value) {
-		if(this.isValidURL(value)) {
-			this.$input.className = "valid";
-		} else {
-			this.$input.className = "";
-		}
+		this.$input.className = this.isValidURL(value) ? "valid" : "";
 		this.storeURL(value);
 	},
 	getURL: function() {
@@ -51,5 +47,5 @@ Procrap.prototype = {
 };
 
 document.addEventListener('DOMContentLoaded', function () {
-	var app = new Procrap();
+	var app = new Procrapp();
 });

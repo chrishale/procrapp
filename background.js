@@ -2,7 +2,13 @@ var Background = function() {
 	var _this = this;
 	_this.redirect_url = "";
 	_this.should_redirect = false;
-	_this.blocking_urls = ["*://*.facebook.com/*", "*://*.twitter.com/*", "*://*.9gag.com/*"];
+	_this.blocking_urls = [
+		"*://*.facebook.com/*",
+		"*://*.twitter.com/*",
+		"*://*.9gag.com/*",
+		"*://*.ebaumsworld.com/*",
+		"*://*.break.com/*"
+	];
 
 	chrome.storage.local.get('redirect_url', function (result) {
 		_this.redirect_url = result.redirect_url;
@@ -10,12 +16,10 @@ var Background = function() {
 	});
 
 	_this.redirectHandler = function(info) {
-		console.log('_this.redirectHandler', _this.should_redirect);
 		if(_this.should_redirect && _this.redirect_url) return { redirectUrl: _this.redirect_url };
 	};
 
 	_this.getStirkeURL = function() {
-		console.log('_this.getStirkeURL');
 		var $a = document.createElement("a");
 		$a.href = _this.redirect_url;
 		if($a.hostname != "strikeapp.com" && $a.hostname != "www.strikeapp.com") return false;
@@ -23,8 +27,7 @@ var Background = function() {
 		return false;
 	};
 
-	_this.checkRedirect = function(url) {  
-		console.log('_this.checkRedirect');
+	_this.checkRedirect = function(url) {
 		if(_this.getStirkeURL()) {
 			var xhr = new XMLHttpRequest();
 			xhr.open('get', _this.getStirkeURL());
