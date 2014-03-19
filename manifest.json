@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Procrapp",
-  "version": "0.2",
+  "version": "0.3",
   "description": "Stops you from procrastinating till you get things done!",
   "icons": { 
     "16": "icon16.png",
