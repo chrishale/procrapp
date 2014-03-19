@@ -2,13 +2,15 @@
 <head>
 	<title>Strike'em</title>
 	<style type="text/css">
-	html, body { min-height: 80px; height: 110px; }
+	html, body { min-height: 80px; height: 140px; }
 	body { padding: 10px; background: #ececec; font-family: Helvetica, sans-serif; }
 	input { border: 0; padding: 10px; min-width: 240px; }
 	input:focus { outline: none; }
 	.valid { color: green; }
 	p { font-size: 10px; color: #999; }
 	a { color: inherit; }
+	.btn { background: #0074D9; padding: 5px; color: #fff; text-align: center; display: block; border-radius: 3px; text-decoration: none; font-size: 14px; }
+	.btn.disabled { background: #aaa; color: #fff; pointer-events: none; cursor: pointer; }
 	</style>
 </head>
 <body>
@@ -16,6 +18,8 @@
 <label>Procrapp</label>
 <input type="url" id="url">
 <p>Create your Strike url by visiting: <a id="strike-link" href="http://strikeapp.com/">strikeapp.com</a>. Paste the link to your list in the box above and you will be redirected to the list until you complete all your tasks.</p>
+
+<p><a href="#" id="break-link" class="btn">Give me a 5 min break</a></p>
 
 <script type="text/javascript" src="app.js"></script>
 </body>

@@ -2,6 +2,7 @@ var Background = function() {
 	var _this = this;
 	_this.redirect_url = "";
 	_this.should_redirect = false;
+	_this.is_on_break = false;
 	_this.blocking_urls = [
 		"*://*.facebook.com/*",
 		"*://*.twitter.com/*",
@@ -9,6 +10,8 @@ var Background = function() {
 		"*://*.ebaumsworld.com/*",
 		"*://*.break.com/*"
 	];
+	// _this.break_time = 15 * 60 * 100; // 15 mins
+	_this.break_time = 5 * 60 * 100; // 5 mins
 
 	chrome.storage.local.get('redirect_url', function (result) {
 		_this.redirect_url = result.redirect_url;
@@ -52,6 +55,21 @@ var Background = function() {
 		if(e.method == "POST") _this.checkRedirect();
 	};
 
+	_this.messageHandler = function(request, sender, sendResponse) {
+		if (request.action == "giveBreak") {
+			var should_redirect_cache = _this.should_redirect;
+			_this.should_redirect = false;
+			_this.is_on_break = true;
+			sendResponse({ timeout: _this.break_time });
+			setTimeout(function() {
+				_this.should_redirect = should_redirect_cache;
+				_this.is_on_break = false;
+			}, _this.break_time);
+		} else if(request.action == "isOnBreak") {
+			sendResponse({ isOnBreak: _this.is_on_break });
+		}
+	};
+
 	chrome.storage.onChanged.addListener(function(changes, namespace) {
 		for (key in changes) {
 			if(key == "redirect_url") {
@@ -65,7 +83,8 @@ var Background = function() {
 
 	chrome.webRequest.onResponseStarted.addListener(_this.goCheckRedirect, { urls: ["*://*.strikeapp.com/*"] }, ['responseHeaders']);
 
+	chrome.extension.onMessage.addListener(_this.messageHandler);
+
 };
 
 var app = new Background();
-

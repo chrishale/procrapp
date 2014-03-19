@@ -4,6 +4,8 @@ var Procrapp = function() {
 	this.localStorage = chrome.storage.local;
 	this.$input = document.getElementById('url');
 	this.$strikeLink = document.getElementById('strike-link');
+	this.$breakLink = document.getElementById('break-link');
+	this.deafultBreakLinkText = this.$breakLink.innerHTML;
 	
 	// listeners
 	this.$input.addEventListener('keyup', function(e) {
@@ -13,7 +15,16 @@ var Procrapp = function() {
 		e.preventDefault();
 		_this.goToStrike();
 	});
-	
+	this.$breakLink.addEventListener('click', function(e) {
+		e.preventDefault();
+		_this.startBreak();
+	});
+
+	var _this = this;
+	chrome.extension.sendMessage({action: "isOnBreak"}, function(response) {
+		if(response.isOnBreak) { _this.disableBreakBtn(); } else { _this.enabledBreakBtn(); }
+	});
+
 	// kick off
 	this.getURL();
 };
@@ -43,7 +54,24 @@ Procrapp.prototype = {
 		} else {
 			return false;
 		}
-	 }
+	},
+	disableBreakBtn: function() {
+		this.$breakLink.className = "btn disabled";
+		this.$breakLink.innerHTML = "On break";
+	},
+	enabledBreakBtn: function() {
+		this.$breakLink.className = "btn";
+		this.$breakLink.innerHTML = this.deafultBreakLinkText;
+	},
+	startBreak: function() {
+		var _this = this;
+		chrome.extension.sendMessage({action: "giveBreak"}, function(response) {
+			_this.disableBreakBtn();
+			var t = setTimeout(function() {
+				_this.enabledBreakBtn();
+			}, response.timeout);
+		});
+	}
 };
 
 document.addEventListener('DOMContentLoaded', function () {
